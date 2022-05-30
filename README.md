@@ -10,7 +10,7 @@ Please find more in the publication below.
 
 ## Example
 To compile it:  
-```c
+```console
 g++ mosa-ea.cpp -o mosa-ea
 ```
 
@@ -18,14 +18,14 @@ The arguments in this code:
 >`-n` is problem size.  
  `-f` is id of fitness function (`1` is OneMax, and `2` is LeadingOnes).  
  `-A` is A in MOSA-EA (A float value greater than 1; we recommend to set as `1.01`).   
- `-p` is pinc in MOSA-EA (A float value between 0 and 1; we recommend to set as `0.4`).   
- `-c` is minimal mutation rate parameter in MOSA-EA (A float value greater than 0; we recommend to set as `0.5/log(n)`).  
- `-l` is population size (λ) in MOSA-EA (A int value greater than 1; we recommend to set as `10000ln(n)`).  
+ `-p` is p<sub>inc</sub> in MOSA-EA (A float value between 0 and 1; we recommend to set as `0.4`).   
+ `-c` is minimal mutation rate parameter χ<sub>min</sub> in MOSA-EA (A float value greater than 0; we recommend to set as `0.5/log(n)`).  
+ `-l` is population size (λ) in MOSA-EA (A int value greater than 1; we recommend to set as `10000 ln(n)`).  
  `-m` is μ in (μ,λ) selection in MOSA-EA (A int value greater than 1 and less than λ; we recommend to set as `λ/8`).  
  `-e` is the maximum of the number of evaluations.  
     
 To run it:  
-```c
+```console
 ./mosa-ea -n 100 -A 1.01 -p 0.4 -c 0.1 -l 20000 -m 2500 -f 2 -e 100000000
 ```
 which is to optimise LeadingOnes (n=100) in 100000000 evaluations by using the recommanded parameter setting.  
