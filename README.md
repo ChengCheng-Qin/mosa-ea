@@ -1,4 +1,4 @@
-# mosa-ea-c-temp
+# MOSA-EA
 Multi-Objective Self-Adaptive EA (MOSA-EA) *(Lehre and Qin, 2022)*, was proposed to optimise single-objective functions, which treats parameter control from multi-objectivisation. The algorithm maximises the fitness and the mutation rates simultaneously, allowing individuals in "dense" fitness valleys and on "sparse" local optima to co-exist on a non-dominated Pareto front.  
 
 Please find more in the publication below.
