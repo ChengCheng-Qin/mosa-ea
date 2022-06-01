@@ -53,3 +53,7 @@ When using MOSA-EA and parts thereof, please kindly cite this work as
 	year = {2022},
 }
 ```
+
+## License
+
+`MOSA-EA` is released under the MIT license. See [LICENSE](LICENSE) for additional details about it.
