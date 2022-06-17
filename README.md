@@ -11,7 +11,7 @@ Please find more in the publication below.
 ## Example
 To compile it:  
 ```console
-g++ mosa-ea.cpp -o mosa-ea
+make
 ```
 
 The arguments in this code:  
@@ -39,17 +39,25 @@ If you have any questions, comments or suggestions, please don't hesitate to con
 
 
 * [Per Kristian Lehre](https://www.cs.bham.ac.uk/~lehrepk/), *School of Computer Science, University of Birmingham*,
-* [Xiaoyu Qin](https://www.cs.bham.ac.uk/~xxq896/), *School of Computer Science, University of Birmingham*,
+* [Xiaoyu Qin](https://www.cs.bham.ac.uk/~xxq896/), *School of Computer Science, University of Birmingham*.
 
 
 When using MOSA-EA and parts thereof, please kindly cite this work as
 
 ```bibtex
 @inproceedings{mosa-ea-theory,
-	title = {Self-adaptation to {Multi}-objectivisation: {A} {Theoretical} {Study}},
-	booktitle = {Proceedings of the {Genetic} and {Evolutionary} {Computation} {Conference}},
+	title = {Self-adaptation to Multi-objectivisation: A Theoretical Study},
+	booktitle = {Proceedings of the Genetic and Evolutionary Computation Conference},
 	publisher = {ACM},
 	author = {Lehre, Per Kristian and Qin, Xiaoyu},
+	year = {2022},
+}
+
+@inproceedings{mosa-ea-empirical,
+	title = {Self-adaptation to Multi-objectivisation: An Empirical Study},
+	booktitle = {Proceedings of the Parallel Problem Solving from Nature},
+	publisher = {Springer},
+	author = {Qin, Xiaoyu and Lehre, Per Kristian},
 	year = {2022},
 }
 ```
