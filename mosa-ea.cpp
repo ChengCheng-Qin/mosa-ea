@@ -1,20 +1,20 @@
+/* Copyright (C) 2022 by Xiaoyu QIN @ Unversity of Birmingham */
+
 #include<iostream>
 #include<cmath>
 #include<cstdlib>
-#include <algorithm>
+#include<algorithm>
 #include<vector>
 #include<string.h>
 #include<time.h>
-#include <random>
-#include <unistd.h>
-#include <getopt.h>
-
-// #include "functions.cpp"
+#include<random>
+#include<unistd.h>
+#include<getopt.h>
 
 using namespace std;
 
 // Global parameters
-int max_evaluation;
+int max_evaluations;
 int population_size;
 int pop_mu;
 int n;
@@ -56,7 +56,7 @@ float onemax(int n, int *bitstring)
     return fitness;
 }
 
-// Class of Evaluation which use to set objective function, e.g., maximal fitness value.
+// Class of Evaluation which is used to set the objective function, e.g., maximal fitness value.
 class Evaluation
 {
     public:
@@ -77,7 +77,7 @@ Evaluation::Evaluation(int id)
 // ****** ADD CUSTOMISED FITNESS FUNCTION ID HERE ******
 float Evaluation::evaluation_solution(int *bitstring)
 {
-    float fitness;
+    float fitness = 0.0;
     switch (id_function)
     {
         case 1:
@@ -98,12 +98,12 @@ float Evaluation::evaluation_solution(int *bitstring)
 class Individual
 {
     public:
-        int index_mutation_rate;
+        int mutation_rate_index;
         int *bitstring;
         float fitness;
         Individual();
-        void mutating_bitstring(float mutation_rate);
-        void mutating_index_mutation_rate(float pinc);
+        void mutate_bitstring(float mutation_rate);
+        void mutate_mutation_rate_index(float pinc);
         void copy_individual(Individual & indi);   
 };
 
@@ -111,7 +111,7 @@ class Individual
 Individual::Individual()
 {
     // Choose a mutation rate uniformly at random
-    index_mutation_rate = rand() % num_mutation_rates;
+    mutation_rate_index = rand() % num_mutation_rates;
     bitstring = new int[n];
     // Generate a bitstring uniformly at random
     for (int i = 0; i < n; i++)
@@ -120,10 +120,10 @@ Individual::Individual()
     }
 }
 
-// Mutation of bitstring of a individual 
-void Individual::mutating_bitstring(float mutation_rate)
+// Mutation of bitstring of an individual 
+void Individual::mutate_bitstring(float mutation_rate)
 {
-    // Bitwisely mutate bitstring with mutation rate
+    // Mutate individual with bitwise mutation operator
     for (int i = 0; i < n; i++)
     {
         if (random_real(eng) < mutation_rate)
@@ -135,7 +135,7 @@ void Individual::mutating_bitstring(float mutation_rate)
 
 void Individual::copy_individual(Individual & indi)
 {
-    index_mutation_rate = indi.index_mutation_rate;
+    mutation_rate_index = indi.mutation_rate_index;
     fitness = indi.fitness;
     for (int i = 0; i < n; i++)
     {
@@ -144,16 +144,16 @@ void Individual::copy_individual(Individual & indi)
 }
 
 // Mutation of mutation rate (index) of a individual
-void Individual::mutating_index_mutation_rate(float para_pinc)
+void Individual::mutate_mutation_rate_index(float para_pinc)
 {
-    // With probability pinc, increase mutation rate by timing A (increase index), otherwise decrease by timing 1/A (decrease index)
+    // With probability pinc, increase the mutation rate by multiplying A, i.e., increase index, otherwise decrease by multiplying 1/A, i.e., decrease index
     if (random_real(eng) < para_pinc)
     {
-        index_mutation_rate = min(index_mutation_rate + 1, num_mutation_rates - 1);
+        mutation_rate_index = min(mutation_rate_index + 1, num_mutation_rates - 1);
     }
     else
     {
-        index_mutation_rate = max(0, index_mutation_rate - 1);
+        mutation_rate_index = max(0, mutation_rate_index - 1);
     }
 }
 
@@ -188,8 +188,8 @@ void Population::mutating_population()
     // For each individual, mutate its mutation rate then mutate its bitstring
     for (int i = 0; i < population_size; i++)
     {
-        offspring_individuals[i].mutating_index_mutation_rate(para_pinc);
-        offspring_individuals[i].mutating_bitstring(mutation_rates[offspring_individuals[i].index_mutation_rate]);
+        offspring_individuals[i].mutate_mutation_rate_index(para_pinc);
+        offspring_individuals[i].mutate_bitstring(mutation_rates[offspring_individuals[i].mutation_rate_index]);
     }
     // Update individuals for the next generation
     individuals = offspring_individuals;
@@ -202,9 +202,9 @@ bool compare_individual_based_fitness(Individual x, Individual y)
 }
 
 // Compare individual only based on mutation rate
-bool compare_individual_based_index_mutation_rate(Individual x, Individual y)
+bool compare_individual_based_mutation_rate_index(Individual x, Individual y)
 {
-    return (x.index_mutation_rate < y.index_mutation_rate);
+    return (x.mutation_rate_index < y.mutation_rate_index);
 }
 
 // Multiobjective sorting
@@ -218,7 +218,7 @@ void Population::multiobj_sorting()
     // vector<Individual> sorted_individuals;
     vector<vector<Individual> > heaps;
     
-    // Make a heap for each value of fitness 
+    // Make a heap for each fitness value 
     float current_fitness = individuals[0].fitness;
     i = 0;
     while (i < population_size)
@@ -229,31 +229,31 @@ void Population::multiobj_sorting()
             heap.push_back(individuals[i]);
             i++;
         }
-        make_heap(heap.begin(), heap.end(), compare_individual_based_index_mutation_rate);
+        make_heap(heap.begin(), heap.end(), compare_individual_based_mutation_rate_index);
         heaps.push_back(heap);
         current_fitness = individuals[i].fitness;
     }
 
     // Sort population based on fronts
     i = 0;
-    int fitter_indi_index_mutation_rate;
+    int fitter_indi_mutation_rate_index;
     while (i < population_size)
     {
         // "Peal" a strict non-dominated front
         j = 0;
-        fitter_indi_index_mutation_rate = -1;
+        fitter_indi_mutation_rate_index = -1;
         while (j < heaps.size())
         {
-            if (heaps[j].size() > 0 && heaps[j].front().index_mutation_rate > fitter_indi_index_mutation_rate)
+            if (heaps[j].size() > 0 && heaps[j].front().mutation_rate_index > fitter_indi_mutation_rate_index)
             {
                 // Add "top" individual into array sorted_individuals
                 sorted_individuals[i].copy_individual(heaps[j].front());
                 i++;
 
-                fitter_indi_index_mutation_rate = heaps[j].front().index_mutation_rate;
+                fitter_indi_mutation_rate_index = heaps[j].front().mutation_rate_index;
 
                 // Remove "top" individual from its heap
-                pop_heap(heaps[j].begin(), heaps[j].end(), compare_individual_based_index_mutation_rate);
+                pop_heap(heaps[j].begin(), heaps[j].end(), compare_individual_based_mutation_rate_index);
                 heaps[j].pop_back();
             }
             j++;
@@ -277,15 +277,15 @@ int main (int argc, char* argv[])
 {
     int i;
 
-    // We set a Default Parameter Setting and an example problem here
+    // We set some default parameter settings and an example problem
 
     // Set maximum of number of evaluations
-    max_evaluation = 100000000;
+    max_evaluations = 100000000;
 
-    // Problem setting
+    // Problem size setting
     n = 100;
 
-    // Parameter setting in MOSA-EA (Default)
+    // Parameter settings in MOSA-EA (Default)
     para_A = 1.01;
     para_pinc = 0.4;
     para_min_mutation_para = 0.5 / log(n);
@@ -329,7 +329,7 @@ int main (int argc, char* argv[])
                 id_function = atoi(optarg);
                 break;
             case 'e':
-                max_evaluation = atoi(optarg);
+                max_evaluations = atoi(optarg);
                 break;
         }
     }
@@ -368,7 +368,7 @@ int main (int argc, char* argv[])
     // Initialise evaluation
     Evaluation evaluation = Evaluation(id_function);
 
-    while(num_evaluation <= max_evaluation && is_find_optimal == false)
+    while(num_evaluation <= max_evaluations && is_find_optimal == false)
     {
         num_generation++;
         cout<<"Gen' "<< num_generation << " (Evaluation: " << num_evaluation << ")" <<" : ";
@@ -383,7 +383,7 @@ int main (int argc, char* argv[])
         population.multiobj_sorting();
 
         best_fitness = population.individuals[0].fitness;
-        cout << "Best Fitness: " << best_fitness << ", its mutation para': " << mutation_rates[population.individuals[0].index_mutation_rate] * n << flush << endl;
+        cout << "Best Fitness: " << best_fitness << ", its mutation para': " << mutation_rates[population.individuals[0].mutation_rate_index] * n << flush << endl;
 
         // Check if optimal found
         if (best_fitness >= evaluation.max_fitness)
