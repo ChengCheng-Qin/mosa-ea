@@ -3,9 +3,11 @@ Multi-Objective Self-Adaptive EA (MOSA-EA) *(Lehre and Qin, 2022)*, was proposed
 
 Please find more in the publication below.
 
-* **publication**:
+* Publication:
 
-  [https://www.cs.bham.ac.uk/~xxq896/gecco2022-mosaea.pdf](https://www.cs.bham.ac.uk/~xxq896/gecco2022-mosaea.pdf)
+  GECCO '22: [https://research.birmingham.ac.uk/en/publications/self-adaptation-via-multi-objectivisation-a-theoretical-study](https://research.birmingham.ac.uk/en/publications/self-adaptation-via-multi-objectivisation-a-theoretical-study)
+  
+  PPSN '22: [https://research.birmingham.ac.uk/en/publications/self-adaptation-via-multi-objectivisation-an-empirical-study](https://research.birmingham.ac.uk/en/publications/self-adaptation-via-multi-objectivisation-an-empirical-study)
   
 
 ## Example
