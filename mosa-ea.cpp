@@ -231,7 +231,10 @@ void Population::multiobj_sorting()
         }
         make_heap(heap.begin(), heap.end(), compare_individual_based_mutation_rate_index);
         heaps.push_back(heap);
-        current_fitness = individuals[i].fitness;
+        if (i < population_size)
+        {
+            current_fitness = individuals[i].fitness;
+        }
     }
 
     // Sort population based on fronts
