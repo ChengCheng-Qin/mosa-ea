@@ -47,7 +47,7 @@ The arguments in the C++ code:
  `-A` is A in MOSA-EA (A float value greater than 1; we recommend to set as `1.01`).   
  `-p` is p<sub>inc</sub> in MOSA-EA (A float value between 0 and 1; we recommend to set as `0.4`).   
  `-c` is minimal mutation rate parameter χ<sub>min</sub> in MOSA-EA (A float value greater than 0; we recommend to set as `0.5/log(n)`).  
- `-l` is population size (λ) in MOSA-EA (A int value greater than 1; we recommend to set as `5000 ln(n)`).  
+ `-l` is population size (λ) in MOSA-EA (A int value greater than 1; we recommend to set as `5000 log(n)`).  
  `-m` is μ in (μ,λ) selection in MOSA-EA (A int value greater than 1 and less than λ; we recommend to set as `λ/8`).  
  `-e` is the maximum of the number of evaluations.  
     
