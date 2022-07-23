@@ -33,6 +33,10 @@ cd mosaea-python-version
 python mosa-ea.py -n 50 -f 2 -A 1.01 -p 0.4 -c 0.1 -l 5000 -m 625 -e 100000000 -r 1 -log 0
 ```
 
+If you turn logger on, you can upload the data to [IOHanalyzer](https://iohanalyzer.liacs.nl) to analyse the performance of MOSA-EA. The guide of [IOHanalyzer](https://iohanalyzer.liacs.nl) is available [here](https://iohprofiler.github.io/IOHanalyzer/).  
+
+To use customised fitness function, please read [here](https://iohprofiler.github.io/IOHexp/python/).  
+
 
 ## Example - C++ Version
 To compile it:  
