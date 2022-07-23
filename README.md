@@ -11,7 +11,7 @@ Please find more in the publication below.
   PPSN '22: [https://research.birmingham.ac.uk/en/publications/self-adaptation-via-multi-objectivisation-an-empirical-study](https://research.birmingham.ac.uk/en/publications/self-adaptation-via-multi-objectivisation-an-empirical-study)
 
 ## Example - Python Version
-First install [IOHprofiler](https://iohprofiler.github.io) via pip. IOHprofiler is a benchmarking platform for evaluating the performance of iterative optimization heuristics.
+First install [IOHprofiler](https://iohprofiler.github.io) via pip. [IOHprofiler](https://iohprofiler.github.io) is a benchmarking platform for evaluating the performance of iterative optimisation heuristics.
 ```console
 pip install ioh
 ```
